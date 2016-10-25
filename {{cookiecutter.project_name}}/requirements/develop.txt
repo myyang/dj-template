@@ -1,0 +1,7 @@
+-r base.txt
+
+# test or local use
+django-extensions
+pygraphviz
+
+-r report.txt

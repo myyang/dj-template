@@ -1,0 +1,38 @@
+version: "2"
+
+services:
+    memcached:
+        image: memcached:alpine
+        container_name: "staging_memcached"
+        expose:
+            - 11211
+    mysql:
+        image: mysql
+        container_name: "staging_mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: "root_passwd"
+            MYSQL_DATABASE: "{{ cookiecutter.project_name }}"
+            MYSQL_USER: "{{ cookiecutter.project_name }}_user"
+            MYSQL_PASSWORD: "{{ cookiecutter.project_name }}_passwd"
+        expose:
+            - 3306
+    uwsgi:
+        image: {{ cookiecutter.registry_url }}/{{ cookiecutter.project_name }}-web:staging
+        container_name: "staging_uwsgi"
+        env_file:
+            - conf/staging.env
+        expose:
+            - 9527
+        links:
+            - memcached
+            - mysql
+    nginx:
+        build: conf/nginx
+        container_name: "staging_nginx"
+        environment:
+            SERVER_NAME: "localhost"
+        ports:
+            - "18080:80"
+            - "18443:443"
+        links:
+            - uwsgi
