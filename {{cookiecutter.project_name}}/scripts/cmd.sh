@@ -76,12 +76,12 @@ case $1 in
         python $DIR/manage.py collectstatic -l
         exit 0  ;;
     test-coverage )
-        coverage run --source=$DIR $DIR/manage.py test
+        coverage run $DIR/manage.py test
         coverage report -m
         exit 0  ;;
     test-coverage-html )
         rm -rf coverage-html
-        coverage run --source=$DIR $DIR/manage.py test
+        coverage run $DIR/manage.py test
         coverage html -d htmlcov
         exit 0  ;;
     package-src )
