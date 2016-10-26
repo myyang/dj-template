@@ -14,33 +14,26 @@ Please follow below steps to setup development environment.
     pyenv install 3.5.2
     pyenv local 3.5.2
     pyenv virtualenv {{ cookiecutter.project_name }}
-    pyenv acitve {{ cookiecutter.project_name }}
+    pyenv activate {{ cookiecutter.project_name }}
     make pip-dev
-    make test-coverage-ci
+    make test-coverage
     make clean
 
 
 Test
 ----
 
-For naive test
-
-.. code:: shell
-
-    make test
-
-
 Testing with coverage report
 
 .. code:: shell
 
-   make test-coverage-ci
+   make test-coverage
 
 Testing with coverage report and generate html output
 
 .. code:: shell
 
-    make test-covrage && make report-coverage-html
+    make test-covrage-html
 
 
 Deploy
