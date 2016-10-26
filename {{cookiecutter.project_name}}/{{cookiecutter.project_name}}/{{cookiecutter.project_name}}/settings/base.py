@@ -54,7 +54,9 @@ THIRD_PARTY_APPS = [
     'django_extensions',
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'base',
+]
 
 INSTALLED_APPS = DJ_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
