@@ -4,6 +4,7 @@ PyMySQL==0.7.9
 # Django related
 Django>=1.10
 djangorestframework==3.4.7
+django-extensions==1.7.4
 
 # Utilities
 PyJWT==1.4.2
