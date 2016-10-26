@@ -1,6 +1,6 @@
 [run]
-omit = {{cookiecutter.project_name}}/{{cookiecutter.project_name}}/settings/*
-include = {{cookiecutter.project_name}}/*
+omit = {{cookiecutter.project_name}}/settings/*
+include = ./*
 [report]
 exclude_lines=
     pragma: no cover
