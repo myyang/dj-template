@@ -10,7 +10,9 @@
 
 """
 
-from base import *
+from .base import *
 
-DEBUG = False
-STAGING = False
+DEBUG = True
+STAGING = True
+
+SECRET_KEY = 'fake-secret-key-for-development'
