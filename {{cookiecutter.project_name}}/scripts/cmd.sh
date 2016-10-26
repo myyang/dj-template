@@ -82,7 +82,7 @@ case $1 in
     test-coverage-html )
         rm -rf coverage-html
         coverage run --source=$DIR $DIR/manage.py test
-        coverage html -d coverage-html/
+        coverage html -d htmlcov
         exit 0  ;;
     package-src )
         rm -f /tmp/$DIR.tar.gz $DIR.tar.gz
@@ -90,7 +90,7 @@ case $1 in
         mv /tmp/$DIR.tar.gz .
         exit 0  ;;
     clean )
-        python $DIR/manage.py clean
+        python $DIR/manage.py clean_pyc
         exit 0  ;;
     * ) echo "Invalid command: $1\nPlease use --help/-h to review usage."
         exit 1 ;;
