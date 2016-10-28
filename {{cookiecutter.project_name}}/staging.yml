@@ -11,13 +11,13 @@ services:
         container_name: "staging_mysql"
         environment:
             MYSQL_ROOT_PASSWORD: "root_passwd"
-            MYSQL_DATABASE: "{{ cookiecutter.project_name }}"
-            MYSQL_USER: "{{ cookiecutter.project_name }}_user"
-            MYSQL_PASSWORD: "{{ cookiecutter.project_name }}_passwd"
+            MYSQL_DATABASE: "{{cookiecutter.project_name}}"
+            MYSQL_USER: "{{cookiecutter.project_name}}_user"
+            MYSQL_PASSWORD: "{{cookiecutter.project_name}}_passwd"
         expose:
             - 3306
     uwsgi:
-        image: {{ cookiecutter.registry_url }}/{{ cookiecutter.project_name }}-web:staging
+        image: /{{cookiecutter.project_name}}-web:staging
         container_name: "staging_uwsgi"
         env_file:
             - conf/staging.env

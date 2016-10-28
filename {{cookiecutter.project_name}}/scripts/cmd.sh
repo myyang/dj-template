@@ -21,6 +21,7 @@ usage ()
     test-coverage-html  Also perform Django test and report coverage and generate html
     package-src         Package source code
     build-base-image    Build base docker images, see details in docker folder
+    start-local         Run a service stack locally for debug, django is accessible at port 9528
     clean               Clean associated code
         
     Options:
@@ -101,6 +102,10 @@ case $1 in
         cd docker
         for i in $(ls); do cd $i && make && cd ../; done
         exit 0  ;;
+    start-local )
+        docker-compose -f local.yml up -d uwsgi
+        echo "Please run django command with \"docker-compose -f local.yml exec -it uwsgi sh\""
+        exit 0 ;;
     clean )
         python $DIR/manage.py clean_pyc
         exit 0  ;;

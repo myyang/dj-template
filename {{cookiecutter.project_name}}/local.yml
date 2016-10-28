@@ -3,7 +3,7 @@ version: "2"
 services:
     rabbitmq:
         image: rabbitmq
-        container_name: dev_rabbitmq
+        container_name: {{cookiecutter.project_name}}_rabbitmq
         expose:
             - 4369
             - 5671
@@ -29,7 +29,7 @@ services:
             - ./var/mail_data/config:/tmp/docker-mailserver/
     redis:
         image: redis:alpine
-        container_name: dev_redis
+        container_name: {{cookiecutter.project_name}}_redis
         restart: always
         expose:
             - 6379
@@ -37,35 +37,43 @@ services:
             - ./var/redis_data:/data
     memcached:
         image: memcached:alpine
-        container_name: "dev_memcached"
+        container_name: "{{cookiecutter.project_name}}_memcached"
         expose:
             - 11211
     mysql:
         image: mysql
-        container_name: "dev_mysql"
+        container_name: "{{cookiecutter.project_name}}_mysql"
         environment:
             MYSQL_ROOT_PASSWORD: "root_passwd"
-            MYSQL_DATABASE: "{{ cookiecutter.project_name }}"
-            MYSQL_USER: "{{ cookiecutter.project_name }}_user"
-            MYSQL_PASSWORD: "{{ cookiecutter.project_name }}_passwd"
+            MYSQL_DATABASE: "{{cookiecutter.project_name}}"
+            MYSQL_USER: "{{cookiecutter.project_name}}_user"
+            MYSQL_PASSWORD: "{{cookiecutter.project_name}}_passwd"
         expose:
             - 3306
     uwsgi:
-        image: python:3.5.2-alpine
-        container_name: "dev_uwsgi"
+        image: py_{{cookiecutter.project_name}}
+        container_name: "{{cookiecutter.project_name}}_uwsgi"
+        command: sh -c "cd /sources/ && make install-pip && make install-dj && ./start-service.sh"
         env_file:
             - conf/staging.env
         expose:
             - 9527
+            - 9528
+        ports:
+            - "9528:9528"
         volumes:
             - ./:/sources
+        working_dir: /sources
+        environment:
+            WORKSPACE: /sources
         links:
             - memcached
             - mysql
             - redis
+            - mailserv
     nginx:
         build: conf/nginx
-        container_name: "dev_nginx"
+        container_name: "{{cookiecutter.project_name}}_nginx"
         environment:
             SERVER_NAME: "localhost"
         ports:

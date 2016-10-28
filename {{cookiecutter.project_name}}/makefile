@@ -1,3 +1,4 @@
+.PHONY: help clean
 CC=python manage.py
 DJ_SRC={{ cookiecutter.project_name }}
 PWD=$(shell pwd)
@@ -24,6 +25,8 @@ clean:
 	scripts/cmd.sh clean
 build-base-image:
 	scripts/cmd.sh build-base-image
+start-local:
+	scripts/cmd.sh start-local
 build-image:
 	make package-src && \
 		docker build --force-rm -t ${IMAGE_TAG} .

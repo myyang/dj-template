@@ -53,7 +53,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
+EMAIL_HOST = 'mailserv'
 EMAIL_HOST_PASSWORD = 'mail_sender'
 EMAIL_HOST_USER = 'mail_passwd'
 EMAIL_PORT = 25

@@ -1,3 +1,3 @@
 
 build:
-	docker build --force-rm -t py_djt_dev .
+	docker build --force-rm -t py_{{cookiecutter.project_name}}_dev .
