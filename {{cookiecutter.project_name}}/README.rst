@@ -19,10 +19,11 @@ Please follow below steps to setup development environment on local machine.
     make test-coverage
     make clean
 
-Optionally, you may create local development stack with docker-compose by using:
+**Optional but recommended**, you may create local development stack with docker-compose_ by using:
 
 .. code:: shell
 
+    make build-base-image
     make start-local
 
 Test
@@ -59,3 +60,4 @@ Build docker image
 
 
 .. _pyenv: https://github.com/yyuu/pyenv
+.. _docker-compose: https://docs.docker.com/compose/
