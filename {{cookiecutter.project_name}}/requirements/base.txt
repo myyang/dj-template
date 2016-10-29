@@ -1,14 +1,15 @@
-# compiled
-PyMySQL==0.7.9
-
 # Django related
 Django>=1.10
 djangorestframework==3.4.7
 django-extensions==1.7.4
 
+# DB
+mysqlclient==1.3.9
+
 # Utilities
 PyJWT==1.4.2
 pytz==2016.7
 requests==2.11.1
+ipython
 
 wheel==0.29.0

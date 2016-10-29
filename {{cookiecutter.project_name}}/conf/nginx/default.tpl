@@ -1,5 +1,6 @@
 upstream uwsgi_servers {
     server uwsgi:9527;
+    server uwsgi:9528;
 }
 
 server {

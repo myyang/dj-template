@@ -1,0 +1,83 @@
+version: "2"
+
+services:
+    rabbitmq:
+        image: rabbitmq
+        container_name: {{cookiecutter.project_name}}_rabbitmq
+        expose:
+            - 4369
+            - 5671
+            - 5672
+            - 25672
+        volumes:
+            - ./var/rabbitmq_data:/var/lib/rabbitmq
+    # see https://github.com/tomav/docker-mailserver
+    mailserv:
+        image: tvial/docker-mailserver:latest
+        hostname: localhost
+        domainname: localhost
+        environment:
+            MAIL_USER: "mail_sender"    # no account needed
+            MAIL_PASS: "mail_passwd"
+        expose:
+            - 25
+            - 143
+            - 587
+            - 993
+        volumes:
+            - ./var/mail_data/data:/var/mail
+            - ./var/mail_data/config:/tmp/docker-mailserver/
+    redis:
+        image: redis:alpine
+        container_name: {{cookiecutter.project_name}}_redis
+        restart: always
+        expose:
+            - 6379
+        volumes:
+            - ./var/redis_data:/data
+    memcached:
+        image: memcached:alpine
+        container_name: "{{cookiecutter.project_name}}_memcached"
+        expose:
+            - 11211
+    mysql:
+        image: mysql
+        container_name: "{{cookiecutter.project_name}}_mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: "root_passwd"
+            MYSQL_DATABASE: "{{cookiecutter.project_name}}"
+            MYSQL_USER: "{{cookiecutter.project_name}}_user"
+            MYSQL_PASSWORD: "{{cookiecutter.project_name}}_passwd"
+        expose:
+            - 3306
+    uwsgi:
+        image: py_{{cookiecutter.project_name}}
+        container_name: "{{cookiecutter.project_name}}_uwsgi"
+        command: sh -c "cd /sources/ && make install-pip && make install-dj && ./start-service.sh"
+        env_file:
+            - conf/staging.env
+        expose:
+            - 9527
+            - 9528
+        ports:
+            - "9528:9528"
+        volumes:
+            - ./:/sources
+        working_dir: /sources
+        environment:
+            WORKSPACE: /sources
+        links:
+            - memcached
+            - mysql
+            - redis
+            - mailserv
+    nginx:
+        build: conf/nginx
+        container_name: "{{cookiecutter.project_name}}_nginx"
+        environment:
+            SERVER_NAME: "localhost"
+        ports:
+            - "18080:80"
+            - "18443:443"
+        links:
+            - uwsgi

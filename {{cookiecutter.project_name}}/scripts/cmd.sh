@@ -20,6 +20,8 @@ usage ()
     test-coverage       Perform Django test commands and report test coverage
     test-coverage-html  Also perform Django test and report coverage and generate html
     package-src         Package source code
+    build-base-image    Build base docker images, see details in docker folder
+    start-local         Run a service stack locally for debug, django is accessible at port 9528
     clean               Clean associated code
         
     Options:
@@ -76,12 +78,19 @@ case $1 in
         python $DIR/manage.py collectstatic -l
         exit 0  ;;
     test-coverage )
-        coverage run $DIR/manage.py test
+        cd $DIR
+        coverage run manage.py test
+        coverage report -m
+        exit 0  ;;
+    test-coverage-quick )
+        cd $DIR
+        coverage run manage.py test --settings=$DIR.settings.quick_test
         coverage report -m
         exit 0  ;;
     test-coverage-html )
-        rm -rf coverage-html
-        coverage run $DIR/manage.py test
+        cd $DIR
+        rm -rf htmlcov
+        coverage run manage.py test
         coverage html -d htmlcov
         exit 0  ;;
     package-src )
@@ -89,6 +98,14 @@ case $1 in
 		tar -czf /tmp/$DIR.tar.gz --exclude-from=.gitignore --exclude=.git* .
         mv /tmp/$DIR.tar.gz .
         exit 0  ;;
+    build-base-image )
+        cd docker
+        for i in $(ls); do cd $i && make && cd ../; done
+        exit 0  ;;
+    start-local )
+        docker-compose -f local.yml up -d uwsgi
+        echo "Please run django command with \"docker-compose -f local.yml exec -it uwsgi sh\""
+        exit 0 ;;
     clean )
         python $DIR/manage.py clean_pyc
         exit 0  ;;

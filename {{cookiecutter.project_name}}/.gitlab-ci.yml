@@ -15,16 +15,16 @@ variables:
     STAGING_SERVER: ""
     PRODUCTION_SERVER: ""
 
-test-with-sqlite-and-mem:
-    image: $REGISTRY_URL/python:2.7.11-alpine-build-dev
+quick-test:
+    image: 
     stage: quick-test
     variables:
-        DJANGO_SETTINGS_MODULE: "{{ cookiecutter.project_name }}.settings.quick_local"
+        DJANGO_SETTINGS_MODULE: "{{cookiecutter.project_name}}.settings.quick_test"
     script:
         - make test-coverage
 
-# Use docker for testing
-test-with-coverage:
+# Use docker services for testing
+formal-test:
     stage: test
     image: $REGISTRY_URL/python:2.7.11-alpine-build-dev
     services:
@@ -34,15 +34,13 @@ test-with-coverage:
         MYSQL_ROOT_PASSWORD: "{{ cookiecutter.project_name }}_passwd"
         MYSQL_DATABASE: "{{ cookiecutter.project_name }}"
         EMAIL_HOST: "localhost"
-        EMAIL_HOST_USER: "emailuser@localhost"
-        EMAIL_HOST_PASSWORD: "emailuser_passwd"
+        EMAIL_HOST_USER: "mail_sender"
+        EMAIL_HOST_PASSWORD: "mail_pass"
         SECRET_KEY: 'secret_key'
-        DJANGO_SETTINGS_MODULE: "{{ cookiecutter.project_name }}.settings.dtest"
+        DJANGO_SETTINGS_MODULE: "{{cookiecutter.project_name}}.settings.formal_test"
     script:
         - scripts/wait_for_service.sh
-        - make test-coverage-ci
-    after_script:
-        - make report-coverage-html
+        - make test-coverage
 
 staging_build:
     stage: build
@@ -76,7 +74,7 @@ staging_deploy:
     variables:
         DOCKER_HOST: $STAGING_SERVER:2375  # 2375 for non-encrypted
     script:
-        - docker-compose up -d nginx
+        - docker-compose -f staging.yml up -d nginx
     only:
         - develop
 
@@ -85,6 +83,6 @@ production_deploy:
     variables:
         DOCKER_HOST: $PRODUCTION_SERVER:2376  # 2376 for tls
     script:
-        - docker-compose up -d nginx_production
+        - docker-compose -f production.yml up -d nginx
     only:
         - master
