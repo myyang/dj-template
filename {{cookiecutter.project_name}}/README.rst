@@ -7,7 +7,7 @@ Setup
 -----
 
 Use pyenv_ for local develop. After pyenv is installed.
-Please follow below steps to setup development environment.
+Please follow below steps to setup development environment on local machine.
 
 .. code:: shell
 
@@ -19,6 +19,11 @@ Please follow below steps to setup development environment.
     make test-coverage
     make clean
 
+Optionally, you may create local development stack with docker-compose by using:
+
+.. code:: shell
+
+    make start-local
 
 Test
 ----
