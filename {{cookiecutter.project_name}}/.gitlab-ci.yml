@@ -56,7 +56,7 @@ staging_build:
     only:
         - develop
 
-release_build:
+production_build:
     stage: build
     variables:
         DOCKER_HOST: $PRODUCTION_SERVER:2376  # 2376 for tls
