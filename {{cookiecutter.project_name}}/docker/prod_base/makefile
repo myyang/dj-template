@@ -1,3 +1,3 @@
 
 build:
-	docker build --force-rm -t py_{{cookiecutter.project_name}} .
+	docker build -t py_{{cookiecutter.project_name}}_prod .
