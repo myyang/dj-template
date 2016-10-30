@@ -1,4 +1,4 @@
-image: {{ cookiecutter.registry_url }}/py2.7.11-build
+image: {{ cookiecutter.registry_url }}/py_{{cookiecutter.project_name}}_dev
 
 stages:
     - quick-test
@@ -16,7 +16,7 @@ variables:
     PRODUCTION_SERVER: ""
 
 quick-test:
-    image: 
+    image: py_{{cookiecutter.project_name}}_quick_test
     stage: quick-test
     variables:
         DJANGO_SETTINGS_MODULE: "{{cookiecutter.project_name}}.settings.quick_test"
@@ -26,7 +26,7 @@ quick-test:
 # Use docker services for testing
 formal-test:
     stage: test
-    image: $REGISTRY_URL/python:2.7.11-alpine-build-dev
+    image: py_{{cookiecutter.project_name}}_quick_test
     services:
         - mysql
         - memcached:alpine

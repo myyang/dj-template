@@ -101,6 +101,11 @@ case $1 in
     build-base-image )
         cd docker
         for i in $(ls); do cd $i && make && cd ../; done
+        cd ..
+        docker run -v $(pwd):/sources/ --name py_{{cookiecutter.project_name}}_quick_test_c -w /sources py_{{cookiecutter.project_name}}_prod make install-pip-dev
+        docker commit -m "pre-install python package for test speedup" py_{{cookiecutter.project_name}}_quick_test_c py_{{cookiecutter.project_name}}_quick_test
+        echo "Removing built container..."
+        docker rm -v py_{{cookiecutter.project_name}}_quick_test_c
         exit 0  ;;
     start-local )
         docker-compose -f local.yml up -d uwsgi
