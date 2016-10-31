@@ -51,7 +51,7 @@ services:
         expose:
             - 3306
     uwsgi:
-        image: py_{{cookiecutter.project_name}}
+        image: py_{{cookiecutter.project_name}}_prod
         container_name: "{{cookiecutter.project_name}}_uwsgi"
         command: sh -c "cd /sources/ && make install-pip && make install-dj && ./start-service.sh"
         env_file:
