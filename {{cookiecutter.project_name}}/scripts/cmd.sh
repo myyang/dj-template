@@ -75,7 +75,7 @@ case $1 in
         pip install -r requirements.txt
         python $DIR/manage.py makemigrations
         python $DIR/manage.py migrate
-        python $DIR/manage.py collectstatic -l
+        python $DIR/manage.py collectstatic -l --noinput
         exit 0  ;;
     test-coverage )
         cd $DIR
