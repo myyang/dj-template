@@ -1,5 +1,6 @@
 {
     "project_name": "dj-template",
+    "python_version": "3.5.2",
     "registry_url": "",
     "author_name": "your_name",
     "author_email": "your@email.com"

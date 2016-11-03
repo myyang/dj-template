@@ -1,11 +1,11 @@
-from python:3.4.5-alpine
+from python:{{cookiecutter.python_version}}-alpine
 
 maintainer {{ cookiecutter.author_email }}
 
 env DJANGO_SETTINGS_MODULE {{ cookiecutter.project_name }}.settings.production
 env WORKSPACE /sources
 
-workdir ${WORKSPACE}
+orkdir ${WORKSPACE}
 
 add {{ cookiecutter.project_name }}.tar.gz ${WORKSPACE}
 

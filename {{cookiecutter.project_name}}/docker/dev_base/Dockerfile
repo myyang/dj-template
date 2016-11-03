@@ -1,4 +1,4 @@
-from python:3.4.5-alpine
+from python:{{cookiecutter.python_version}}-alpine
 
 maintainer "ymy1019@gmail.com"
 

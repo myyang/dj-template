@@ -11,8 +11,8 @@ Please follow below steps to setup development environment on local machine.
 
 .. code:: shell
 
-    pyenv install 3.4.5
-    pyenv local 3.4.5
+    pyenv install {{cookiecutter.python_version}}
+    pyenv local {{cookiecutter.python_version}}
     pyenv virtualenv {{ cookiecutter.project_name }}
     pyenv activate {{ cookiecutter.project_name }}
     make pip-dev
