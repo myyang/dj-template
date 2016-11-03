@@ -14,8 +14,9 @@ services:
     # see https://github.com/tomav/docker-mailserver
     mailserv:
         image: tvial/docker-mailserver:latest
-        hostname: localhost
-        domainname: localhost
+        hostname: mailserv
+        domainname: mailserv
+        container_name: {{cookiecutter.project_name}}_mailserv
         environment:
             MAIL_USER: "mail_sender"    # no account needed
             MAIL_PASS: "mail_passwd"
