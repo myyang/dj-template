@@ -5,6 +5,7 @@
     ~~~~~~~~~~~~~~~~~~
 
     celery configs
+    NOTE: copied and modified from http://github.com/pydanny/cookiecutter-django
 
 """
 
@@ -17,7 +18,7 @@ from celery import Celery
 from django.conf import settings
 
 if not settings.configured:
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{cookiecutter.project_name}}.settings')
 
 app = Celery('{{cookiecutter.project_name}}')
 
