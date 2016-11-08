@@ -112,7 +112,7 @@ case $1 in
         echo "Please run django command with \"docker-compose -f local.yml exec uwsgi python {{cookiecutter.project_name}}/manage.py [COMMANDS]\""
         exit 0 ;;
     clean )
-        python $DIR/manage.py clean_pyc
+        find . \( -name *.pyc -o -name __pycache__ -o -name .coverage -o -name *,cover\) -delete
         exit 0  ;;
     * ) echo "Invalid command: $1\nPlease use --help/-h to review usage."
         exit 1 ;;
