@@ -52,6 +52,8 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
+# my-static-collections
+assets/
 
 # Flask stuff:
 instance/
@@ -73,7 +75,7 @@ target/
 .python-version
 
 # celery beat schedule file
-celerybeat-schedule
+celerybeat-schedule*
 
 # dotenv
 .env
