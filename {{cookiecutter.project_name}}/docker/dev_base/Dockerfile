@@ -1,6 +1,6 @@
 from python:{{cookiecutter.python_version}}-alpine
 
-maintainer "ymy1019@gmail.com"
+maintainer "{{cookiecutter.author_email}}"
 
 run apk add --update alpine-sdk
 
