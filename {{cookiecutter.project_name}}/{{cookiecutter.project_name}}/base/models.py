@@ -4,11 +4,11 @@
     base.models
     ~~~~~~~~~~~
 
-    This is a naive file which defines most db used abstract base models.
+    This is a naive file which defines most db used mixins.
     Module contains:
 
-        BaseModel
-        BaseSoftDeleteModel
+        BaseMixin
+        SoftDeleteMixin
 
     :copyright: (c) 2016 by {{cookiecutter.author_name}}.
     :license: , see LICENSE for more details.
@@ -17,10 +17,10 @@
 from django.db import (models, router)
 
 
-class BaseModel(models.Model):
+class BaseMixin(object):
 
     """
-    This abstract base model contains 2 fields:
+    This mixin contains 2 fields:
         created: created timestamp (auto created)
         upadted: updated timestamp (auto modified)
     """
@@ -28,14 +28,11 @@ class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        abstract = True
 
-
-class BaseSoftDeleteModel(models.Model):
+class SoftDeleteMixin(object):
 
     """
-    This abstract base model contains 3 fields:
+    This mixin contains 3 fields:
         created: created timestamp (auto created)
         upadted: updated timestamp (auto modified)
         is_deleted: indicate this record is deleted or not (default False)
@@ -62,10 +59,7 @@ class BaseSoftDeleteModel(models.Model):
         self.save(using=using)
         return self.is_deleted
 
-    class Meta:
-        abstract = True
 
-
-class TestSDModel(BaseSoftDeleteModel):
+class TestSDModel(SoftDeleteMixin):
     """ for test """
     pass
