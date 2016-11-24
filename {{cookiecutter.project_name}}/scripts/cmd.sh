@@ -18,6 +18,7 @@ usage ()
     install-pip-rep     Install report
     install-dj          Perform Django commands
     test-coverage       Perform Django test commands and report test coverage
+    test-coverage-quick Perform Django test commands and report test coverage with quicker settings
     test-coverage-html  Also perform Django test and report coverage and generate html
     package-src         Package source code
     build-base-image    Build base docker images, see details in docker folder
@@ -112,7 +113,7 @@ case $1 in
         echo "Please run django command with \"docker-compose -f local.yml exec uwsgi python {{cookiecutter.project_name}}/manage.py [COMMANDS]\""
         exit 0 ;;
     clean )
-        find . \( -name *.pyc -o -name __pycache__ -o -name .coverage -o -name *,cover\) -delete
+        find . \( -name *.pyc -o -name __pycache__ -o -name .coverage -o -name *,cover \) -delete
         exit 0  ;;
     * ) echo "Invalid command: $1\nPlease use --help/-h to review usage."
         exit 1 ;;
