@@ -17,7 +17,7 @@
 from django.db import (models, router)
 
 
-class BaseMixin(object):
+class BaseMixin(models.Model):
 
     """
     This mixin contains 2 fields:
@@ -28,8 +28,21 @@ class BaseMixin(object):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        abstract = True
 
-class SoftDeleteMixin(object):
+
+class SoftDeleteManager(models.Manager):
+    """
+    This manager should fit soft delete logic, more powerful and 'normal' query
+    should be use with `_hack_objects` which is default model manager
+    """
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted=False)
+
+
+class SoftDeleteMixin(models.Model):
 
     """
     This mixin contains 3 fields:
@@ -43,6 +56,12 @@ class SoftDeleteMixin(object):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False)
+
+    objects = SoftDeleteManager()  # perform logical query
+    _hack_objects = models.Manager()  # perform real query
+
+    class Meta:
+        abstract = True
 
     def delete(self, using=None, keep_parents=False):
         """
