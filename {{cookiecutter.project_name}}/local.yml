@@ -26,8 +26,8 @@ services:
             - 587
             - 993
         volumes:
-            - ./var/mail_data/data:/var/mail
-            - ./var/mail_data/config:/tmp/docker-mailserver/
+            - ./var/mail_data/data/:/var/mail/
+            - ./conf/mailserv/:/tmp/docker-mailserver/
     redis:
         image: redis:alpine
         container_name: {{cookiecutter.project_name}}_redis

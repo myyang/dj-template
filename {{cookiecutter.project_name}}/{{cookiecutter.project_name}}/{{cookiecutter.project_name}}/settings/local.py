@@ -54,8 +54,8 @@ MANAGERS = ADMINS
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mailserv'
-EMAIL_HOST_PASSWORD = 'mail_sender'
-EMAIL_HOST_USER = 'mail_passwd'
+EMAIL_HOST_PASSWORD = 'mail_passwd'
+EMAIL_HOST_USER = 'mail_sender'
 EMAIL_PORT = 25
 EMAIL_SUBJECT_PREFIX = SYSTEM_EMAIL_PREFIX
 EMAIL_USE_TLS = True
