@@ -12,6 +12,9 @@
 
 from .base import *
 
+INSTALLED_APPS = INSTALLED_APPS + [
+    # 'django_slack',
+]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
@@ -56,3 +59,29 @@ SERVER_EMAIL = EMAIL_HOST_USER
 # Celery
 BROKER_URL = 'redis://' + env("REDIS_HOST_DB")
 CELERY_RESULT_BACKEND = 'redis://' + env("REDIS_HOT_DB")
+
+# # Slack
+# SLACK_TOKEN = env('SLACK_TOKEN')
+# SLACK_CHANNEL = 'django-am'
+# SLACK_USERNAME = 'django-am-bot'
+#
+# # Logging
+# LOGGING['handlers']['slack_admins'] = {
+#     'level': 'ERROR',
+#     'filters': ['require_debug_false'],
+#     'class': 'django_slack.log.SlackExceptionHandler'
+# }
+# LOGGING['loggers'].update({
+#     'django': {
+#         'handlers': ['console', 'slack_admins', ],
+#     },
+#     'django.security.DisallowedHost': {
+#         'handlers': ['slack_admins', ],
+#         'propagate': False,
+#     },
+#     'django.request': {
+#         'handlers': ['mail_admins', 'slack_admins', ],
+#         'level': 'ERROR',
+#         'propagate': False,
+#     }
+# })
