@@ -25,7 +25,7 @@ DATABASES = {
         'PORT': env("DB_PORT"),
         'NAME': env("DB_NAME"),
         'USER': env("DB_USERNAME"),
-        'PASSWORD': evn("DB_PASSWORD"),
+        'PASSWORD': env("DB_PASSWORD"),
         'ENCODING': 'utf-8',
     }
 }
