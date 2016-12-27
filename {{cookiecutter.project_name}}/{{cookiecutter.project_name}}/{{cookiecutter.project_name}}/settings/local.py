@@ -29,6 +29,11 @@ DATABASES = {
         'PASSWORD': '{{cookiecutter.project_name}}_passwd',
         'ENCODING': 'utf-8',
     }
+    # for local run
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
 # Caches
@@ -45,6 +50,10 @@ CACHES = {
     #         'DB': 0,
     #     },
     # }
+    # for local run
+    # 'default': {
+    #     'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    # },
 }
 
 ADMINS = (
@@ -60,6 +69,9 @@ EMAIL_PORT = 25
 EMAIL_SUBJECT_PREFIX = SYSTEM_EMAIL_PREFIX
 EMAIL_USE_TLS = True
 SERVER_EMAIL = EMAIL_HOST_USER
+# for local run
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '/tmp/app-message
 
 # Celery
 BROKER_URL = 'redis://redis/2'
