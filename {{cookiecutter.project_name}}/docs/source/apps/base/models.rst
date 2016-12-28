@@ -1,7 +1,7 @@
 
-views
+Models
 ======
 
-.. automodule:: app1.views
+.. automodule:: base.models
    :members:
    :undoc-members:

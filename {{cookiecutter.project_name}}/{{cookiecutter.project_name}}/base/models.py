@@ -2,16 +2,12 @@
 # -*- coding: utf-8 -*-
 """
     base.models
-    ~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~
 
     This is a naive file which defines most db used mixins.
-    Module contains:
 
-        BaseMixin
-        SoftDeleteMixin
-
-    :copyright: (c) 2016 by {{cookiecutter.author_name}}.
-    :license: , see LICENSE for more details.
+    Contents
+    ^^^^^^^^^^
 """
 
 from django.db import (models, router)

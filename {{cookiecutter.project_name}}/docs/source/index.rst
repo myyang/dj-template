@@ -13,8 +13,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   sample
-   apps/app1/index
+   setup
+   apps/base/index
 
 
 Indices and tables
