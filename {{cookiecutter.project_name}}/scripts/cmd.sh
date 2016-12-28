@@ -128,8 +128,8 @@ case $1 in
         if [[ "$FORCE" == "1" ]]; then BUILD=1; fi
         if [[ "$BUILD" ]]; then
             cd docker/dev_base && make && cd ../../
-            docker run -v $(pwd):/sources/ --name py_{{cookiecutter.project_name}}_quick_test_c -w /sources vssci.tutk.com:5000/py_{{cookiecutter.project_name}}_dev make install-pip-dev && \
-            docker commit -m "pre-install python package for test speedup" py_{{cookiecutter.project_name}}_quick_test_c vssci.tutk.com:5000/py_{{cookiecutter.project_name}}_quick_test && \
+            docker run -v $(pwd):/sources/ --name py_{{cookiecutter.project_name}}_quick_test_c -w /sources py_{{cookiecutter.project_name}}_dev make install-pip-dev && \
+            docker commit -m "pre-install python package for test speedup" py_{{cookiecutter.project_name}}_quick_test_c py_{{cookiecutter.project_name}}_quick_test && \
             echo "Removing built container..."
             docker rm -v py_{{cookiecutter.project_name}}_quick_test_c
         fi
