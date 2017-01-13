@@ -64,24 +64,50 @@ CELERY_RESULT_BACKEND = 'redis://' + env("REDIS_HOT_DB")
 # SLACK_TOKEN = env('SLACK_TOKEN')
 # SLACK_CHANNEL = 'django-am'
 # SLACK_USERNAME = 'django-am-bot'
-#
-# # Logging
-# LOGGING['handlers']['slack_admins'] = {
-#     'level': 'ERROR',
-#     'filters': ['require_debug_false'],
-#     'class': 'django_slack.log.SlackExceptionHandler'
-# }
-# LOGGING['loggers'].update({
-#     'django': {
-#         'handlers': ['console', 'slack_admins', ],
-#     },
-#     'django.security.DisallowedHost': {
-#         'handlers': ['slack_admins', ],
-#         'propagate': False,
-#     },
-#     'django.request': {
-#         'handlers': ['mail_admins', 'slack_admins', ],
-#         'level': 'ERROR',
-#         'propagate': False,
-#     }
-# })
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'slack_admin': {
+        #     'level': 'ERROR',
+        #     'filters': ['require_debug_false'],
+        #     'class': 'django_slack.log.SlackExceptionHandler'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'slack_admin', ],
+        },
+        'django.security.DisallowedHost': {
+            'handlers': ['mail_admins', 'slack_admin', ],
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['mail_admins', 'slack_admin', ],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'py.warnings': {
+            'handlers': ['console'],
+        },
+    }
+}
