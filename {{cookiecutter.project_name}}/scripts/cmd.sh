@@ -82,7 +82,6 @@ case $1 in
         exit $?  ;;
     install-dj )
         pip install -r requirements.txt && \
-        python $DIR/manage.py makemigrations && \
         python $DIR/manage.py migrate && \
         python $DIR/manage.py collectstatic  --noinput
         exit $? ;;
