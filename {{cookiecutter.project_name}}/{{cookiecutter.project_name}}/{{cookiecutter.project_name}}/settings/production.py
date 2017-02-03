@@ -58,7 +58,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 
 # Celery
 BROKER_URL = 'redis://' + env("REDIS_HOST_DB")
-CELERY_RESULT_BACKEND = 'redis://' + env("REDIS_HOT_DB")
+CELERY_RESULT_BACKEND = 'redis://' + env("REDIS_HOST_DB")
 
 # # Slack
 # SLACK_TOKEN = env('SLACK_TOKEN')

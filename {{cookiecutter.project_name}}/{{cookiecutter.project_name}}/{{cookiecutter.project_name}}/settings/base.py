@@ -21,7 +21,7 @@ def env(key):
 
     """
     try:    # pragma: no cover
-        os.environ[key]
+        return os.environ[key]
     except KeyError:    # pragma: no cover
         raise ValueError("Please set %s in your env or declare in settings file" % key)
 
